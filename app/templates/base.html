@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Snap Files</title>
+    
+        <link rel="stylesheet" text="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+
+        {% block header %}
+        {% endblock %}
+    </head>
+    <div class="navbar navbar-default">
+        <div class="container">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Snap Files</a>
+              </div>
+              <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul style="padding-top:7px"class="nav navbar-nav navbar-right">
+                  {% if logged_in %}
+                      <form method="post" action="/logout" id="tab">
+                            <input type="submit" value="Logout" class="btn btn-default">
+                       </form>
+                  {% else %}
+                        <form method="post" action="/create" id="tab">
+                            <input type="submit" value="Create" class="btn btn-default">
+                       </form>
+                  {% endif %}
+
+                </ul>
+              </div><!-- /.nav-collapse -->
+        </div><!-- /.container -->
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-dismissable alert-success">
+                      <button type="button" class="close" data-dismiss="alert">×</button>
+                      {{message}}
+            </div>
+        {% endfor %}
+      {% endif %}  
+    {% endwith %}
+    <body>
+
+    {% block content %}
+    {% endblock %}
+
+    </body>
+     <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+     <script src="{{ url_for('static', filename='js/tab.js') }}"></script>
+</html>
